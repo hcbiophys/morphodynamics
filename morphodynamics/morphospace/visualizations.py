@@ -6,7 +6,7 @@ from matplotlib import colors
 import random
 import torch
 
-from unsupervised.utils_unsupervised import get_lims_from_points, kde, _standardize_coords
+from morphodynamics.morphospace.utils import get_lims_from_points, kde, _standardize_coords
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
