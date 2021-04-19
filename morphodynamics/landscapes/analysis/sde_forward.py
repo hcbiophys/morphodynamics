@@ -13,8 +13,19 @@ import copy
 from morphodynamics.landscapes.utils import get_meshgrid, dump_pickle, kde
 
 class Run_SDE():
+    """
+    Run forward simulations of eq. 1
+    """
 
     def __init__(self, kdes_data, p_nn_list, F_array, D_arrays, xlims, ylims, kde_bw):
+        """
+        - kdes_data: data pdfs
+        - p_nn_list: pdf of the PINN (to sample starting positions for the eq. 1 simulations from)
+        - F_array: force field (sampled in space) found by the PINN
+        - D_arrays: diffusivities (sampled in space and time) found by the PINN
+        - xlims, ylims: spatial limits
+        - kde_bw: bandwidth for the kernel density estimate
+        """
 
         self.kdes_data = kdes_data
         self.kdes_data_2 = None
@@ -33,6 +44,9 @@ class Run_SDE():
         self.kde_bw = kde_bw
 
     def _randomSample_xys(self, array, dims, num):
+        """
+        Generate starting points from the pdf at the first snapshot time
+        """
         rowcols = []
         idxs = np.random.choice(array.flatten().shape[0], num, p = array.flatten()/np.sum(array))
         for idx in idxs:
@@ -52,18 +66,27 @@ class Run_SDE():
         return row, col
 
     def _force_at_position(self, x, y):
+        """
+        Get the force at a point in space
+        """
         row, col = self._xy_to_rowcol(x, y, dims = 5000)
         F_x = self.F_array[row, col, 0]
         F_y = self.F_array[row, col, 1]
         return F_x, F_y
 
     def get_D(self, x, y, t, dims, num_Ds):
+        """
+        Get the diffusivity at a point in space and time
+        """
         idx_time = int(t//(120/num_Ds))
         row, col = self._xy_to_rowcol(x, y, dims = dims)
         D = self.D_arrays[idx_time][row, col]
         return D
 
     def run(self, num_particles, dt, T):
+        """
+        Run the simulations of eq. 1
+        """
         thresh_p_nn_0 = copy.deepcopy(self.p_nn_list[0])
         starts = self._randomSample_xys(thresh_p_nn_0, 5000, num_particles)
         starts = [(i,j) for (i,j) in starts if i > self.xlims[0] and i < self.xlims[1] and j > self.ylims[0] and j < self.ylims[1]]
@@ -75,7 +98,7 @@ class Run_SDE():
             snap_times.append(np.arange(0, T, dt)[idx])
 
         for idx_start, position in enumerate(starts):
-            print(idx_start)
+            print('particle ', idx_start)
             path = []
             for time_step in np.arange(0, T, dt):
                 for idx_snap, snap_time in enumerate(snap_times):
@@ -89,12 +112,15 @@ class Run_SDE():
                     position = position + F*dt + sigma*np.sqrt(dt)*np.random.normal(0, 1, size = 2)
                     path.append(position)
                 else:
-                    print('Exit time step:', time_step)
                     break
 
             self.paths.append(path)
 
     def set_kdes_data_2(self, error_bw):
+        """
+        Need to resample data kde for comparison, since particle start positions are
+        generated from the kde while spores map to a singular point
+        """
 
         self.kdes_data_2 = []
 
@@ -116,6 +142,9 @@ class Run_SDE():
             self.kdes_data_2.append(kde_2)
 
     def set_kdes_nn(self, error_bw):
+        """
+        Set the kde from the simulations
+        """
 
         for idx_snap, scatter in enumerate(self.scatters_nn):
 

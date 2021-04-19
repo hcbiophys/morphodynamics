@@ -45,6 +45,9 @@ def _rebin(arr, new_shape):
 
 
 def get_listsOf_pArrays(model, num_snaps, dims0, dimsN, save_path = None):
+    """
+    Run inference on the model to get a list of pdfs at different time points
+    """
     row_sec_size = 10
 
     t0 = np.tile(np.array([model.tlims[0]]), (dims0*row_sec_size, 1))
@@ -73,7 +76,6 @@ def get_listsOf_pArrays(model, num_snaps, dims0, dimsN, save_path = None):
 
     p_list.append(p_0)
 
-
     for idx_time in range(1, num_snaps):
         ts = t_list[idx_time]
 
@@ -91,6 +93,9 @@ def get_listsOf_pArrays(model, num_snaps, dims0, dimsN, save_path = None):
     return p_lists
 
 def get_listsOf_DArrays(model, num_Ds, dims, save_path):
+    """
+    Run inference on the model to get a list of diffusivities (arrays on the spatial grid) at different time points
+    """
 
     listsOf_DArrays = []
 
@@ -114,6 +119,9 @@ def get_listsOf_DArrays(model, num_Ds, dims, save_path):
 
 
 def get_F_field(model, dims,  save_path):
+    """
+    Run inference on the model to get the force field (array on the spatial grid)
+    """
     row_sec_size = 10
 
     grid = np.zeros((dims, dims, 2))

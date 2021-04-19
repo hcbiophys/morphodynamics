@@ -24,6 +24,9 @@ from morphodynamics.landscapes.analysis.save_sde_objs import SDE_Mixin
 
 
 class Landscape_Model(SDE_Mixin):
+    """
+    The physics-informed neural network (PINN) architecture
+    """
 
 
     def __init__(self, pdf_list, kde_bw,
@@ -31,6 +34,18 @@ class Landscape_Model(SDE_Mixin):
                     data_weight, pde_weight, BC_weight, norm_weight,
                     num_collocation, num_BC,
                     batch_size, learning_rate, save_append):
+        """
+        - pdf_list: data pdf list
+        - kde_bw: bandwidth for the kernel density estimate (kde)
+        - xlims, ylims, tlims: limits for x, y (spatial) and t (time)
+        - dims: dimensions of the spatial grid
+        - layers_p, layers_U, layers_D: layers for the three networks
+        - data_weight, pde_weight, BC_weight, norm_weight: hyperparameters weighting the total loss, L_total
+        - num_collocation: number of points for the PDE loss
+        - num_BC: number of points for the boundary condition loss
+        - batch_size, learning_rate
+        - save_append: string with information when naming output files
+        """
 
         self.pdf_list, self.kde_bw = pdf_list, kde_bw
 
@@ -49,7 +64,7 @@ class Landscape_Model(SDE_Mixin):
 
 
         self._make_data()
-        p_net_means, p_net_stds, D_net_means, D_net_stds, U_net_means, U_net_stds = self._get_normalisation_stats()
+        p_net_means, p_net_stds, D_net_means, D_net_stds, U_net_means, U_net_stds = self._get_normalisation_stats() # for normalizing the network inputs
 
         self.net_p = Residual_Net(layers_p, means = p_net_means, stds = p_net_stds, final_act = 'softplus', sigMult = None)
         self.net_U = Residual_Net(layers_U, means = U_net_means, stds = U_net_stds, final_act = 'sigmoid', sigMult = 3)
@@ -68,8 +83,9 @@ class Landscape_Model(SDE_Mixin):
         self.iterations = 0
 
     def _make_data(self):
-
-
+        """
+        Creat datasets so random points can be chosen for each loss component
+        """
         pdf_datasets_all = make_pdf_datasets(self.pdf_list, self.xlims, self.ylims, self.tlims, self.dims, 9)
         self.pdf_dataset = np.concatenate(pdf_datasets_all, axis = 0)
         self.PDE_dataset = make_PDE_dataset(self.num_collocation, self.xlims, self.ylims, self.tlims, self.dims)
@@ -77,7 +93,9 @@ class Landscape_Model(SDE_Mixin):
 
 
     def _get_normalisation_stats(self):
-
+        """
+        For normalizing the network inputs
+        """
         p_net_datasets =  [self.pdf_dataset] + [self.PDE_dataset] + [self.BC_dataset]
         p_net_means, p_net_stds = get_mean_std_from_datasets(p_net_datasets)
 
@@ -91,13 +109,14 @@ class Landscape_Model(SDE_Mixin):
 
 
     def train(self, total_time):
+        """
+        Train the PINN for a specified amount of time
+        """
 
         start_time = time.time()
         time_so_far = 0
 
         while time_so_far < total_time:
-
-            #tf.keras.backend.clear_session()
 
             with tf.GradientTape(persistent=True) as tape:
 
@@ -122,7 +141,6 @@ class Landscape_Model(SDE_Mixin):
                 pde_loss = self.pde_weight*self.MSE(residual, target)
 
 
-
                 # BC LOSS
                 idxs_batch = np.random.choice(self.BC_dataset.shape[0], self.batch_size)
                 BC_batch = self.BC_dataset[idxs_batch, :]
@@ -132,7 +150,7 @@ class Landscape_Model(SDE_Mixin):
                 BC_loss = self.BC_weight*self.MSE(p_out, target)
 
 
-                # NORMALISING LOSS
+                # NORMALIZING LOSS
                 segment_area = (self.xlims[1] - self.xlims[0])*(self.ylims[1] - self.ylims[0])/(self.dims**2)
                 xyts = get_random_norm_slice(self.xlims, self.ylims, self.tlims, self.dims)
                 xyts = tf.Variable(xyts, dtype = tf.float32)
@@ -141,7 +159,7 @@ class Landscape_Model(SDE_Mixin):
                 norm_loss = self.norm_weight*(pdf_integral - 1.)**2
 
 
-                total_loss = data_loss + pde_loss + BC_loss + norm_loss
+                total_loss = data_loss + pde_loss + BC_loss + norm_loss # note the weightings are applied before this
 
 
             trainables = self.net_p.trainable_variables + self.net_D.trainable_variables + self.net_U.trainable_variables
@@ -173,6 +191,9 @@ class Landscape_Model(SDE_Mixin):
 
 
     def predict(self, xyts_test):
+        """
+        Run inference on a set of points, xyts_test
+        """
 
         p_out = self.net_p(xyts_test, training = False)
         D_out = self.net_D(xyts_test, training = False)
@@ -182,6 +203,9 @@ class Landscape_Model(SDE_Mixin):
 
 
     def save_networks(self, dir_weights):
+        """
+        Save the network weights and biases
+        """
 
         path_p = dir_weights + 'p_{}.ckpt'
         path_D = dir_weights + 'D_{}.ckpt'
@@ -194,6 +218,9 @@ class Landscape_Model(SDE_Mixin):
 
 
     def load_networks(self, dir_weights, idx_load):
+        """
+        Load the network weights and biases
+        """
 
         path_p = dir_weights + 'p_{}.ckpt'
         path_D = dir_weights + 'D_{}.ckpt'
@@ -205,5 +232,8 @@ class Landscape_Model(SDE_Mixin):
 
 
     def save_ims(self, save_dir):
+        """
+        Save graph of losses changing during training
+        """
         save_ims = Save_Ims(model = self, save_dir = save_dir)
         save_ims()

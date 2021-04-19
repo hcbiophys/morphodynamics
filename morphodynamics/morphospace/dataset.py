@@ -8,7 +8,6 @@ import matplotlib.pyplot as plt
 import sys
 
 
-
 class Dataset(torch_data.Dataset):
     """
     A class for feeding image data into the autoencoder
@@ -24,12 +23,12 @@ class Dataset(torch_data.Dataset):
         self.transforms = transforms
         self.RGB = RGB
 
-        self.times = ['min090', 'min105', 'min120', 'min135', 'min150', 'min165', 'min180', 'min195', 'min210']
+        self.times = ['090min', '105min', '120min', '135min', '150min', '165min', '180min', '195min', '210min']
         self.drugnames = ['DMSO', 'compound_A', 'compound_X', 'compound_B', 'compound_C_0_041', 'compound_C_10']
 
         self.paths = []
         path_to_here = os.path.dirname(os.path.realpath(__file__))
-        path_images = os.path.join(path_to_here, '../data/images/')
+        path_images = path_to_here+'/../data/images/'
         for time in self.times:
             for drug in self.drugnames:
                 ims =  glob.glob(path_images + '{}/{}/*'.format(time, drug))

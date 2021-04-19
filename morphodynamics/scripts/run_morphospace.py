@@ -19,7 +19,7 @@ from morphodynamics.morphospace.utils import *
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
-
+load_train = sys.argv[1]
 
 class Implement_Autoencoder():
     """
@@ -57,6 +57,22 @@ class Implement_Autoencoder():
 
         self.VAE = VAE(self.code_size, self.beta, self.lr, self.batch_size, self.lims_list).to(device)
         self.VAE.load(path_weights)
+
+
+    def train_and_save_model(self, num_epochs_train):
+        """
+        Train and save state_dict.
+        """
+        self.VAE = VAE(self.code_size, self.beta, self.lr, self.batch_size, self.lims_list).cuda()
+        dataset = Dataset(self.img_transforms, RGB = False)
+        dataset.drug_labelled()
+
+        train_dataloader = torch.utils.data.DataLoader(dataset, batch_size = self.batch_size, shuffle = True)
+
+        for epoch in range(num_epochs_train):
+            self.VAE.train_oneEpoch(train_dataloader)
+            path_to_here = os.path.dirname(os.path.realpath(__file__))
+            self.VAE.save(path_to_here+'/../outputs/autoencoder_{}.pth.tar'.format(self.VAE.num_epochs_trained))
 
 
     def graphic_1snap_drug(self, drug_name):
@@ -126,17 +142,19 @@ if __name__ == '__main__':
 
     lims_list = (-10, 70, -50, 55) # limits are normalized for the landscape model so each morphospace axis has limits [-10, 10]
 
-    # to train ... (pre-trained weights are provided, loaded below)
-    #implement_autoencoder.train_and_save_model(num_epochs_train=10, add_videos = True, add_synths = True, remove_90percent_spores=True)
+
 
     # load autoecoder weights
     path_to_here = os.path.dirname(os.path.realpath(__file__))
     path_weights = os.path.join(path_to_here, '../data/network_weights/autoencoder/epoch5.pth.tar')
 
     implement_autoencoder = Implement_Autoencoder(code_size = 2, beta = 0, lr = 1e-4, batch_size = 50, lims_list = lims_list, save_path = path_to_here+'/../outputs/{}.png')
-    implement_autoencoder.load_model(path_weights = path_weights)
 
-    # visualizations
-    implement_autoencoder.VAE.code_projections_2D((200, 200), save_path = implement_autoencoder.save_path, proj_sampling_rate = 15)
-    implement_autoencoder.graphic_1snap_time(8)
-    #implement_autoencoder.scatter_1drug_allSnaps(drug = 'compound_X', idx_drug = 2) # idxs are order in drugnames list attribute of Dataset
+    if load_train == 'train':
+        implement_autoencoder.train_and_save_model(num_epochs_train=10) # to train ... (pre-trained weights are provided, loaded below)
+    elif load_train == 'load':
+        implement_autoencoder.load_model(path_weights = path_weights)
+        # visualizations
+        implement_autoencoder.VAE.code_projections_2D((200, 200), save_path = implement_autoencoder.save_path, proj_sampling_rate = 15)
+        implement_autoencoder.graphic_1snap_time(8)
+        #implement_autoencoder.scatter_1drug_allSnaps(drug = 'compound_X', idx_drug = 2) # idxs are order in drugnames list attribute of Dataset

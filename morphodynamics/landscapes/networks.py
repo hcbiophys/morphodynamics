@@ -9,10 +9,12 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import pickle
 import time
-import tensorflow_addons as tfa
 from tensorflow.keras.layers import Dense, BatchNormalization
 
 class WN_Linear(tf.keras.layers.Layer):
+    """
+    Linear network layer with weight normalization
+    """
     def __init__(self, in_dim, out_dim):
         super(WN_Linear, self).__init__()
         w_init = tf.keras.initializers.GlorotUniform()
@@ -30,6 +32,9 @@ class WN_Linear(tf.keras.layers.Layer):
 
 
 class Residual_Block(tf.keras.layers.Layer):
+    """
+    Network block used in the Residual Network below
+    """
     def __init__(self, in_out_out):
         super(Residual_Block, self).__init__()
 
@@ -55,6 +60,9 @@ class Residual_Block(tf.keras.layers.Layer):
 
 
 class Residual_Net(tf.keras.Model):
+    """
+    Residual network with skip connections
+    """
 
     def __init__(self, layer_dims, means, stds, final_act, sigMult):
          super(Residual_Net, self).__init__()
@@ -97,8 +105,9 @@ class Residual_Net(tf.keras.Model):
 
 
 def FP_2D(net_p, net_D, net_U, xyt, tape):
-
-
+    """
+    Differential operators that enfore the Fokker Planck equation
+    """
 
     p_out = net_p(xyt)
     D_out = net_D(xyt)
@@ -125,7 +134,6 @@ def FP_2D(net_p, net_D, net_U, xyt, tape):
     Dp_xx = tape.gradient(Dp_x, xyt)[:, 0:1]
     Dp_yy = tape.gradient(Dp_y, xyt)[:, 1:2]
 
-    #residual = -p_t -term1 -term2 + tf.math.multiply(D, p_xx) + tf.math.multiply(D, p_yy)
     residual = -p_t -term1 -term2 + Dp_xx + Dp_yy
 
     return residual

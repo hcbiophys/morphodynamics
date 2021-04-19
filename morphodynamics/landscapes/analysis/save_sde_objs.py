@@ -7,6 +7,11 @@ from morphodynamics.landscapes.analysis.sde_forward import Run_SDE
 class SDE_Mixin():
 
     def save_sde_objs(self, sde_num_particles, sde_objs_path):
+        """
+        Run and save simulations of eq. 1
+        - sde_num_particles: number of particles to simulate
+        - sde_objs_path: directory to save outputs into
+        """
 
 
         p_lists = get_listsOf_pArrays(model = self, num_snaps = 9, dims0 = 5000, dimsN = 200, save_path = sde_objs_path + 'p_list_{}.pickle')

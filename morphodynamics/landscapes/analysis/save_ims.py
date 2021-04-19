@@ -16,8 +16,15 @@ from morphodynamics.landscapes.analysis.sde_forward import *
 
 
 class Save_Ims():
+    """
+    Save losses during training and the potential as an array
+    """
 
     def __init__(self, model, save_dir):
+        """
+        - model: this is the physics-informed neural network (PINN)
+        - save_dir: where to save the plot and potential to
+        """
 
         self.model = model
         self.save_dir = save_dir
@@ -30,11 +37,9 @@ class Save_Ims():
 
 
     def __call__(self):
-
         self._plot_losses()
         self._plot_pdfs_getUandD()
         self._plot_and_save_U()
-
         #plt.savefig(self.save_dir + 'View_{}_{}.png'.format(self.model.save_append, self.model.idx_save))
         #plt.close()
 
@@ -45,6 +50,9 @@ class Save_Ims():
 
 
     def _plot_losses(self):
+        """
+        Plot how each of the loss terms changes in time
+        """
 
         ax = self.fig.add_subplot(self.gs[2:5, :7])
         losses = [self.model.data_losses, self.model.BC_losses,  self.model.pde_losses, self.model.total_losses, self.model.norm_losses]
@@ -55,8 +63,9 @@ class Save_Ims():
         ax.legend()
 
     def _plot_pdfs_getUandD(self):
-
-        # find maximum Diffusivity for coloring
+        """
+        Run inference to get the pdf, potential (U) and diffusivity (D)
+        """
 
         p_max = 0
         D_max = 0
@@ -100,6 +109,9 @@ class Save_Ims():
 
 
     def _plot_and_save_U(self):
+        """
+        Plot and save the potential as an array
+        """
 
         U = np.reshape(self.U_out, (self.model.dims, self.model.dims))
 

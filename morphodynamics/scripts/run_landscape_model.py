@@ -74,8 +74,7 @@ if train_load == 'train':
     for _ in range(save_num):
 
         model.train(total_time = train_time_hrs / save_num)
-        model.save_networks(dir_weights = dir_weights)
-        path_to_here = os.path.dirname(os.path.realpath(__file__))
+        model.save_networks(dir_weights = path_to_here+'/../outputs/')
         model.save_ims(save_dir = path_to_here+'/../outputs/')
         model.idx_save += 1
 
