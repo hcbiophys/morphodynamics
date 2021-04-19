@@ -279,4 +279,4 @@ class VAE(torch.nn.Module, Visualizations_Mixin):
         """
         Load the model's state_dict from arg: path.
         """
-        self.load_state_dict(torch.load(path))
+        self.load_state_dict(torch.load(path, map_location=torch.device(device)))

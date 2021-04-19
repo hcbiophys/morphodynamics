@@ -3,7 +3,7 @@ from sklearn.neighbors import KernelDensity
 import glob
 import sys
 import os
-
+import torch
 
 
 def get_lims_from_points(points):
@@ -61,29 +61,4 @@ class UnFlatten(torch.nn.Module):
     def forward(self, batch):
         return batch.view(batch.shape[0], self.num_reps, self.height, self.width)
 
-class PrintShape(torch.nn.Module):
-    def forward(self, batch):
-        print(batch.shape)
-        return batch
-
-class PrintNeurons(torch.nn.Module):
-    def forward(self, batch):
-        batch_ = batch.detach().cpu().numpy()
-        np.set_printoptions(threshold = np.inf)
-        print(batch_)
-        return batch
-
-class PlotNeurons(torch.nn.Module):
-    def forward(self, batch):
-        batch_ = batch.detach().cpu().numpy()
-        for idx in range(batch_.shape[0]):
-            plt.plot(batch_[idx, :], label = '{}'.format(idx))
-        plt.legend()
-        plt.show()
-
-        return batch
-
-plot_neurons = PlotNeurons()
-print_neurons = PrintNeurons()
-print_shape = PrintShape()
 flatten = Flatten()

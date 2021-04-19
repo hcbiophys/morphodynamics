@@ -10,13 +10,12 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import numpy as np
 import time
-import pickle
 import cv2
 
 
 from morphodynamics.morphospace.autoencoder import VAE
 from morphodynamics.morphospace.dataset import Dataset
-from unsupervised.utils_unsupervised import *
+from morphodynamics.morphospace.utils import *
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 

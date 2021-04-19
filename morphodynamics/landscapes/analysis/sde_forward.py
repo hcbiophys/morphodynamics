@@ -114,7 +114,6 @@ class Run_SDE():
             ax = fig.add_subplot(2, 9, 8+idx+1)
             ax.imshow(np.log10(kde_2), vmin = -5, vmax = 0.19, cmap = 'jet')
             self.kdes_data_2.append(kde_2)
-        plt.savefig('/end/home/hc2814/Desktop/code_direct_outputs/comparison.png')
 
     def set_kdes_nn(self, error_bw):
 

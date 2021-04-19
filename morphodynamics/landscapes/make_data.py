@@ -10,7 +10,7 @@ import pickle
 import random
 
 
-from fokker_planck.utils import get_meshgrid, unpack_lims
+from morphodynamics.landscapes.utils import get_meshgrid, unpack_lims
 
 
 def make_PDE_dataset(num_collocation, xlims, ylims, tlims, dims):
