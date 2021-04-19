@@ -14,7 +14,7 @@ import scipy.stats
 import scipy.stats as stats
 
 from morphodynamics.morphospace.visualizations import Visualizations_Mixin
-from unsupervised.utils_unsupervised import *
+from morphodynamics.morphospace.utils import *
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 

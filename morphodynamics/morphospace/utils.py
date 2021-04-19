@@ -40,3 +40,50 @@ def _standardize_coords(coords, orig_lims):
     x_new = -10 + 20*(coords[0]-xmin)/(xmax-xmin)
     y_new = -10 + 20*(coords[1]-ymin)/(ymax-ymin)
     return [x_new, y_new]
+
+
+
+
+
+
+
+
+class Flatten(torch.nn.Module):
+    def forward(self, batch):
+        return batch.view(batch.shape[0], -1)
+
+class UnFlatten(torch.nn.Module):
+    def __init__(self, num_reps, height, width):
+        super(UnFlatten, self).__init__()
+        self.num_reps = num_reps
+        self.height = height
+        self.width = width
+    def forward(self, batch):
+        return batch.view(batch.shape[0], self.num_reps, self.height, self.width)
+
+class PrintShape(torch.nn.Module):
+    def forward(self, batch):
+        print(batch.shape)
+        return batch
+
+class PrintNeurons(torch.nn.Module):
+    def forward(self, batch):
+        batch_ = batch.detach().cpu().numpy()
+        np.set_printoptions(threshold = np.inf)
+        print(batch_)
+        return batch
+
+class PlotNeurons(torch.nn.Module):
+    def forward(self, batch):
+        batch_ = batch.detach().cpu().numpy()
+        for idx in range(batch_.shape[0]):
+            plt.plot(batch_[idx, :], label = '{}'.format(idx))
+        plt.legend()
+        plt.show()
+
+        return batch
+
+plot_neurons = PlotNeurons()
+print_neurons = PrintNeurons()
+print_shape = PrintShape()
+flatten = Flatten()
