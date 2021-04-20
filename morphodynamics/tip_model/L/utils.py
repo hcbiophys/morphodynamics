@@ -1,9 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import sys
-from scipy.stats import skewnorm, norm, uniform, lognorm, gamma
-import random
-import pickle
+from scipy.stats import lognorm
 import matplotlib.ticker as ticker
 import os
 

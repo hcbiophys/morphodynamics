@@ -1,7 +1,5 @@
-import argparse
 import os
 import sys
-import glob
 import torch
 import torchvision
 import matplotlib
@@ -9,11 +7,7 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image
-import time
-import pickle
 import cv2
-import scipy
-from scipy.integrate import solve_ivp
 import warnings
 warnings.filterwarnings("ignore")
 from scipy.stats import lognorm
@@ -319,7 +313,7 @@ class Morph_Sim():
 
                 im*=255
                 im = im.astype(np.uint8)
-                _ , contours, _ = cv2.findContours(im, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+                contours, _ = cv2.findContours(im, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
 
 

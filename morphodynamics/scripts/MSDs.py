@@ -1,7 +1,5 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import sys
-import glob
 import cv2
 import pickle
 import os
@@ -29,10 +27,6 @@ for drug_name in ['compound_A', 'compound_B', 'compound_C_0_041', 'compound_X', 
     video_trajs = []
     for idx, i in enumerate(video_trajs_):
         video_trajs.append([_standardize_coords(j, lims_list) for j in i])
-
-
-    print('len(video_trajs)', len(video_trajs))
-
 
     video_trajs = [i[:35] for i in video_trajs]
     sims = [i[::60] for i in sims] # so it's 3 min intervals like the videos

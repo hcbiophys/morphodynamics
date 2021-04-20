@@ -1,6 +1,5 @@
 import numpy as np
 import cv2
-import pickle
 import matplotlib.pyplot as plt
 from matplotlib import colors
 import random

@@ -1,17 +1,8 @@
-import argparse
 import os
 import sys
-import glob
 import time
 import torch
 import torchvision
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
-import numpy as np
-import time
-import cv2
-
 
 from morphodynamics.morphospace.autoencoder import VAE
 from morphodynamics.morphospace.dataset import Dataset

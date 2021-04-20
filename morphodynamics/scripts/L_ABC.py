@@ -4,8 +4,6 @@ import sys
 import os
 import tempfile
 import matplotlib.pyplot as plt
-from scipy.stats import norm, skewnorm, lognorm, gamma
-from sklearn.neighbors import KernelDensity
 import time
 import pyabc
 

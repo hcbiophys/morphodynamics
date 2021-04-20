@@ -1,17 +1,7 @@
 import tensorflow as tf
-
-from scipy.stats import skewnorm
 import numpy as np
-import scipy.io
 import time
 import sys
-import scipy.stats
-import matplotlib
-matplotlib.use('agg')
-import matplotlib.pyplot as plt
-import matplotlib.gridspec as gridspec
-import pickle
-import random
 
 from morphodynamics.landscapes.networks import Residual_Net, FP_2D
 from morphodynamics.landscapes.make_data import *

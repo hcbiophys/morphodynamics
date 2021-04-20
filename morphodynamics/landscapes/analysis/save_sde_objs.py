@@ -1,5 +1,3 @@
-import os
-
 from morphodynamics.landscapes.analysis.get_fields import *
 from morphodynamics.landscapes.analysis.sde_forward import Run_SDE
 

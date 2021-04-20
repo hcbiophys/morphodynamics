@@ -1,15 +1,7 @@
 import tensorflow as tf
-from scipy.stats import skewnorm
 import numpy as np
-import time
-import sys
-import scipy.stats
 import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
-import pickle
-import time
-from tensorflow.keras.layers import Dense, BatchNormalization
+
 
 class WN_Linear(tf.keras.layers.Layer):
     """

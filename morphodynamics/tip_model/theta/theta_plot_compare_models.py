@@ -1,28 +1,11 @@
-import argparse
 import os
 import sys
-import glob
-import torch
-import torchvision
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import numpy as np
-sys.path.append('/end/home/hc2814/Desktop/code/custom_dataset_classes')
-from custom_dataset_classes.datasets_y3 import Custom_Dataset_Y3
-from utils_theta import *
-from PIL import Image
-sys.path.append('/end/home/hc2814/Desktop/code/NN_scripts/unsupervised/VAE')
-from unsupervised.VAE.y3.VAEs_y3 import VAE_Y3_Data
-import time
-import pickle
-import cv2
-import scipy
-from scipy.integrate import solve_ivp
 import warnings
 warnings.filterwarnings("ignore")
-from scipy.stats import lognorm
-
 
 idx_model = int(sys.argv[1])
 

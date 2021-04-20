@@ -1,14 +1,5 @@
-from scipy.stats import skewnorm
 import numpy as np
-import time
-import sys
-import scipy.stats
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
-import pickle
 import random
-
 
 from morphodynamics.landscapes.utils import get_meshgrid, unpack_lims
 

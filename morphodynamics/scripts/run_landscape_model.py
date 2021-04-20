@@ -1,8 +1,6 @@
 import sys
 import os
-import numpy as np
 import tensorflow as tf
-import glob
 import sys
 
 tf.keras.backend.set_floatx('float32')

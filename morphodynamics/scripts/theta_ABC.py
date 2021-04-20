@@ -1,24 +1,11 @@
-import argparse
 import sys
 import torch
-import torchvision
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
 import numpy as np
-from custom_dataset_classes.datasets_y3 import Custom_Dataset_Y3
-from PIL import Image
-from unsupervised.VAE.y3.VAEs_y3 import VAE_Y3_Data
-from unsupervised.VAE.embeddings.load_VAE_embeddings import load_func
-import time
 import pickle
-import cv2
-from scipy.integrate import odeint
 import warnings
 warnings.filterwarnings("ignore")
 import pyabc
 import tempfile
-import pickle
 import pandas as pd
 
 from morphodynamics.tip_model.theta.morph_sim_class import *
@@ -282,8 +269,7 @@ if __name__ == '__main__':
                 [2.45, 66.2, 61.4, 0.14, 1.09, 0.64],
                 [1.85, 68.4, 36.6, 0.62, 0.95, 0.30]]
 
-    #ABC = theta_ABC(drug_names[idx_drug], L_params[idx_drug], num_runs = 1000, pop_size = 40)
-    ABC = theta_ABC(drug_names[idx_drug], L_params[idx_drug], num_runs = 50, pop_size = 5)
+    ABC = theta_ABC(drug_names[idx_drug], L_params[idx_drug], num_runs = 1000, pop_size = 40)
 
     model0 = {'compound_A': [0.126]}
     model1 = {'compound_A': [0.0065]}

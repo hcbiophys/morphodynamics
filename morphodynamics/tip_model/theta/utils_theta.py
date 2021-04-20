@@ -1,19 +1,9 @@
-import os
-import sys
 import glob
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import numpy as np
 import cv2
-import scipy
-import torch
-import torchvision
-sys.path.append('/end/home/hc2814/Desktop/code/custom_dataset_classes')
-from custom_dataset_classes.datasets_y3 import Custom_Dataset_Y3
-sys.path.append('/end/home/hc2814/Desktop/code/NN_scripts/unsupervised/VAE')
-from unsupervised.VAE.y3.VAEs_y3 import VAE_Y3_Data
-import pickle
 from sklearn.neighbors import KernelDensity
 
 

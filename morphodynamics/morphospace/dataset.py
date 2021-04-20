@@ -1,11 +1,8 @@
-import numpy as np
 import os
 import glob
-from PIL import Image, ImageStat
+from PIL import Image
 import cv2
 import torch.utils.data as torch_data
-import matplotlib.pyplot as plt
-import sys
 
 
 class Dataset(torch_data.Dataset):
