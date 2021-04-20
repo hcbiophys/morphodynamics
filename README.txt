@@ -66,11 +66,11 @@ Section 3: Tip Growth Model
 ------------------------------
 Note: options for model index (idx_model) are [0, 1, 2]; in the manuscript these are called models 1, 2 & 3 respectively.
 
-- Fig.4b&d Fig.S4a (comparison of MAP simulations with data for fungus lengthening & probability distributions associated with the MAP values)
+- Fig.4b&d Fig.S4a (comparison of MAP simulations with data for lengthening model & probability distributions associated with the MAP values)
 python L_ABC.py [compound] MAP_simulations
 (Or to run the full inference process: python L_ABC.py [compound] full_inference)
 
-- Fig.4c, Fig. S3d & Fig.S4b (comparison of MAP simulations with data for fungus bending)
+- Fig.4c, Fig. S3d & Fig.S4b (comparison of MAP simulations with data for bending models)
 python theta_ABC.py MAP_vis [compound] [idx_model] # note inference was run with all three models for compound_A, and model 2 only for all other compounds
 (To run full inference: python theta_ABC.py full_inference [compound] 2) # prints parameters and weights which can then be swapped in to morphodynamics/tip_model/theta/accepted_params_kappa.py for plotting
 
