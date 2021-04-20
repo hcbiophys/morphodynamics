@@ -82,7 +82,9 @@ elif train_load == 'load':
     model.idx_save = idxs_load[drug_name] # this is part of the path name loaded
 
     model.load_networks(dir_weights = dir_weights, idx_load = model.idx_save)
-    sde_objs_path = dir_save_vis + 'new_sde_objs/{}/'.format(drug_name)
+    sde_objs_path = path_to_here+'/../outputs/new_sde_objs/{}/'.format(drug_name)
+    if not os.path.exists(path_to_here+'/../outputs/new_sde_objs/'):
+        os.mkdir(path_to_here+'/../outputs/new_sde_objs/')
     os.mkdir(sde_objs_path)
     model.save_ims(save_dir = sde_objs_path + '/')
     model.save_sde_objs(sde_num_particles = 200, sde_objs_path = sde_objs_path)

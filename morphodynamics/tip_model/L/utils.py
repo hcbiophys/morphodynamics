@@ -102,7 +102,7 @@ def plot_MAP_comparison(times, data_hists, num_runs, bins, drug_name, param_dict
     plt.subplots_adjust(bottom = 0.2)
     #plt.tight_layout()
     path_to_here = os.path.dirname(os.path.realpath(__file__))
-    plt.savefig(path_to_here+'/../../outputs/MAP_simulation_{}.png'.format(drug_name), dpi = 1200)
+    plt.savefig(path_to_here+'/../../outputs/L_MAP_simulation_{}.png'.format(drug_name), dpi = 1200)
     plt.close()
 
 
@@ -131,7 +131,7 @@ def plot_MAP_comparison(times, data_hists, num_runs, bins, drug_name, param_dict
         ax.tick_params(axis="y", direction="in", labelsize = 6)
     plt.subplots_adjust(bottom = 0.4,  hspace = 0)
     path_to_here = os.path.dirname(os.path.realpath(__file__))
-    plt.savefig(path_to_here+'/../../outputs/MAP_distributions.png', dpi = 1200)
+    plt.savefig(path_to_here+'/../../outputs/L_MAP_distributions.png', dpi = 1200)
     plt.close()
 
 

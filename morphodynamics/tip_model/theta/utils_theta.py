@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import cv2
 from sklearn.neighbors import KernelDensity
-
+import sys
 
 
 def to_fung_im(points, pixels_width, isSpore):

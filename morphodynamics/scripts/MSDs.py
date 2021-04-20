@@ -29,7 +29,7 @@ for drug_name in ['compound_A', 'compound_B', 'compound_C_0_041', 'compound_X', 
         video_trajs.append([_standardize_coords(j, lims_list) for j in i])
 
     video_trajs = [i[:35] for i in video_trajs]
-    sims = [i[::60] for i in sims] # so it's 3 min intervals like the videos
+    sims = [i[::6] for i in sims] # so it's 3 min intervals like the videos
     sims = [i[:35] for i in sims]
 
 

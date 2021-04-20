@@ -156,7 +156,7 @@ class theta_ABC():
         all_models_set_sim_ims = [self.morph_sim.M0_set_sim_ims, self.morph_sim.M1_set_sim_ims, self.morph_sim.M2_set_sim_ims]
         all_models_set_sim_ims[idx_model](*args)
         self.morph_sim.set_sim_points()
-        self.morph_sim.add_simIms_toimsArray(drug_name = self.drug_name, idx_model = idxs_models[0], idx_pop = idx_model)
+        self.morph_sim.add_simIms_toimsArray(drug_name = self.drug_name, idx_model = idx_model[0], idx_pop = idx_model)
         x_dict = {"X_2": self.data_points}
         y_dict = {'X_2' : self.morph_sim.sim_points}
         distance_abs(x_dict, y_dict)

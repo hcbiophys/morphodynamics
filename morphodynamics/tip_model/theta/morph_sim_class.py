@@ -12,7 +12,7 @@ import warnings
 warnings.filterwarnings("ignore")
 from scipy.stats import lognorm
 
-from morphodynamics.morphospace.autoencoder import VAE
+from morphodynamics.morphospace.autoencoder import VAE as VAE_class
 from morphodynamics.tip_model.theta.utils_theta import *
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -54,7 +54,7 @@ class Morph_Sim():
         """
         path_to_here = os.path.dirname(os.path.realpath(__file__))
         VAE_path = os.path.join(path_to_here, '../../data/network_weights/autoencoder/plusSynths_epoch7.pth.tar')
-        VAE = VAE_Y3_Data(code_size=2, beta=0, learning_rate=1e-3, batch_size=32, lims_list=(-10, 70, -50, 55)).to(device)
+        VAE = VAE_class(code_size=2, beta=0, learning_rate=1e-3, batch_size=32, lims_list=(-10, 70, -50, 55)).to(device)
         VAE.load(VAE_path)
         VAE.eval()
         self.VAE = VAE
@@ -339,7 +339,7 @@ class Morph_Sim():
         ax.imshow(self.ims_array)
 
         path_to_here = os.path.dirname(os.path.realpath(__file__))
-        plt.savefig(path_to_here+'/../../outputs/morphs_{}_model{}_pop{}.png'.format(drug_name, idx_model, idx_pop))
+        plt.savefig(path_to_here+'/../../outputs/morphs_{}_model{}.png'.format(drug_name, idx_model))
 
 
 

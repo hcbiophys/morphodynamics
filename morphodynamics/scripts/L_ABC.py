@@ -3,6 +3,8 @@ import numpy as np
 import sys
 import os
 import tempfile
+import warnings
+warnings.filterwarnings("ignore")
 import matplotlib.pyplot as plt
 import time
 import pyabc
