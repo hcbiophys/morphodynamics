@@ -339,7 +339,7 @@ class Morph_Sim():
         ax.imshow(self.ims_array)
 
         path_to_here = os.path.dirname(os.path.realpath(__file__))
-        plt.savefig(path_to_here+'/../../outputs/morphs_{}_model{}.png'.format(drug_name, idx_model))
+        plt.savefig(path_to_here+'/../../outputs/theta_MAP_{}_model{}.png'.format(drug_name, idx_model))
 
 
 

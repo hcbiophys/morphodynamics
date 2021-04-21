@@ -72,7 +72,7 @@ for drug_name in ['compound_A', 'compound_B', 'compound_C_0_041', 'compound_X', 
         ax.set_xticks([])
         ax.set_yticks([])
 
-        plt.savefig(path_to_here+'/../outputs/video_embeddings.png', dpi = 1200)
+        plt.savefig(path_to_here+'/../outputs/video_embeddings.png', dpi = 300)
 
 
 

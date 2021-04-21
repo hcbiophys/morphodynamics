@@ -8,6 +8,7 @@ Please note:
 - In the following, replace [compound] with the relevant compound out of [DMSO, compound_A, compound_B, compound_C_0_041, compound_C_10, compound_X]
 - Neural networks were trained with a Quadro RTX 6000 GPU. The scripts below will run on a CPU, mostly within < 30s, however for some a GPU is required for reasonable completion times (training networks from scratch & tip model inference).
 - Example image data (75 images for each time point and compound) is in morphodynamics/scripts/images/
+- To run on the full datasets (available from r.endres@imperial.ac.uk), simply change the load path in morphodynamics/morphospace/dataset.py
 
 
 
@@ -21,14 +22,16 @@ Setup
 python setup.py develop
 
 - Requirements (can be installed via e.g. python -m pip install torch==1.6.0 once the desired python environment has been loaded)
+python 3.8.3
 torch 1.6.0
 torchvision 0.2.1
 tensorflow 2.3.1
-numpy==1.20.2
-opencv-python==4.4.0.46
-pyabc==0.10.3
-scipy==1.6.2
-matplotlib==3.4.1
+numpy 1.20.2
+opencv-python 4.4.0.46
+pyabc 0.10.3
+scipy 1.6.2
+matplotlib 3.4.1
+mayavi 4.7.2
 
 
 
@@ -46,7 +49,8 @@ Section 2: Landscape Model
 ------------------------------
 
 - Fig.3d&S1a
-python run_landscape_visualizations.py [compound] landscape # can be viewed in interactive mode by uncommenting line 191, 'mlab.show()'
+python run_landscape_visualizations.py [compound] landscape # can be viewed in interactive mode by uncommenting line 191, 'mlab.show()'; please note a window will appear for ~15s
+# as the high resolution output is rendered, though this can be adjusted at the mlab.savefig line
 
 - Fig.S2a-f
 python run_landscape_visualizations.py [compound] errors
@@ -73,7 +77,6 @@ python L_ABC.py [compound] MAP_simulations
 - Fig.4c, Fig. S3d & Fig.S4b (comparison of MAP simulations with data for bending models)
 python theta_ABC.py MAP_vis [compound] [idx_model] # note inference was run with all three models for compound_A, and model 2 only for all other compounds
 (To run full inference: python theta_ABC.py full_inference [compound] 2) # prints parameters and weights which can then be swapped in to morphodynamics/tip_model/theta/accepted_params_kappa.py for plotting
-
 
 - Fig.4e (Posterior distribution for the two-parameter optimal bending model)
 python theta_ABC.py M2_posterior [compound] 2
