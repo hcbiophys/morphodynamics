@@ -22,7 +22,7 @@ Setup
 python setup.py develop
 
 - Requirements (can be installed via e.g. python -m pip install torch==1.6.0 once the desired python environment has been loaded)
-python 3.8.3
+python 3.7.3
 torch 1.6.0
 torchvision 0.2.1
 tensorflow 2.3.1
