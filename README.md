@@ -49,8 +49,7 @@ python run_morphospace.py load # to train autoencoder from scratch, replace 'loa
 
 
 - Fig.3d&S1a
-python run_landscape_visualizations.py [compound] landscape # can be viewed in interactive mode by uncommenting line 191, 'mlab.show()'; please note a window will appear for ~15s
-# as the high resolution output is rendered, though this can be adjusted at the mlab.savefig line
+python run_landscape_visualizations.py [compound] landscape # can be viewed in interactive mode by uncommenting line 191, 'mlab.show()'; please note a window will appear for ~15s as the high resolution output is rendered, though this can be adjusted at the mlab.savefig line
 
 - Fig.S2a-f
 python run_landscape_visualizations.py [compound] errors
