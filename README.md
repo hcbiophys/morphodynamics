@@ -21,17 +21,17 @@ Please note:
 - To run the setup so imports of internal modules work
 python setup.py develop
 
-- Requirements (can be installed via e.g. python -m pip install torch==1.6.0 once the desired python environment has been loaded)\   
-python 3.7.3\  
-torch 1.6.0  
-torchvision 0.2.1  
-tensorflow 2.3.1
-numpy 1.20.2
-opencv-python 4.4.0.46
-pyabc 0.10.3
-scipy 1.6.2
-matplotlib 3.4.1
-mayavi 4.7.2
+- Requirements (can be installed via e.g. python -m pip install torch==1.6.0 once the desired python environment has been loaded)   
+python 3.7.3      
+torch 1.6.0    
+torchvision 0.2.1    
+tensorflow 2.3.1  
+numpy 1.20.2  
+opencv-python 4.4.0.46  
+pyabc 0.10.3  
+scipy 1.6.2  
+matplotlib 3.4.1  
+mayavi 4.7.2  
 
 
 
