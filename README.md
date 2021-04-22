@@ -1,4 +1,4 @@
-Code used for the manuscript Physics-Informed Deep Learning Characterizes Morphodynamics of Asian Soybean Rust Disease
+## Code used for the manuscript Physics-Informed Deep Learning Characterizes Morphodynamics of Asian Soybean Rust Disease
 Please do get in touch if needed (henry.cavanagh14@imperial.ac.uk)
 
 
@@ -13,8 +13,8 @@ Please note:
 
 
 
-Setup
-------------------------------
+# Setup
+
 - Tested on: Mac OS Catalina 10.15.3 & CentOS Linux release 7.7.1908
 - Typical install time: <10s
 
@@ -38,15 +38,15 @@ mayavi 4.7.2
 
 
 
-Section 1: Morphospace
-------------------------------
+# Section 1: Morphospace
+
 - Fig.2a&b
 python run_morphospace.py load # to train autoencoder from scratch, replace 'load' with 'train' and new weights will be saved to morphodynamics/outputs/. Please note however that only a subset of images are in the /data/images/ folder
 
 
 
-Section 2: Landscape Model
-------------------------------
+# Section 2: Landscape Model
+
 
 - Fig.3d&S1a
 python run_landscape_visualizations.py [compound] landscape # can be viewed in interactive mode by uncommenting line 191, 'mlab.show()'; please note a window will appear for ~15s
@@ -66,8 +66,8 @@ python run_landscape_model.py [compound] load 0 0
 
 
 
-Section 3: Tip Growth Model
-------------------------------
+# Section 3: Tip Growth Model
+
 Note: options for model index (idx_model) are [0, 1, 2]; in the manuscript these are called models 1, 2 & 3 respectively.
 
 - Fig.4b&d Fig.S4a (comparison of MAP simulations with data for lengthening model & probability distributions associated with the MAP values)
