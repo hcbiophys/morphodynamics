@@ -328,15 +328,18 @@ class Morph_Sim():
 
                 if len(contours) > 1:
                     contour = contours[1]
+
+                    # so the spore is at the code point
+                    contour[:, :, 0] -= int(im.shape[1]/5)-5
+                    contour[:, :, 1] -= int(im.shape[0]/2)
                     contour[:, :, 0] += x_start
-                    #contour[:, :, 0] = np.mean(contour[:, :, 0]) - contour[:, :, 0] + np.mean(contour[:, :, 0]) # to flip
                     contour[:, :, 1] += array_dim - y_start
                     cv2.drawContours(self.ims_array, [contour], -1, (255, 255, 255), -1)
 
 
         figMorphs = plt.figure(figsize = (70, 40))
         ax = figMorphs.add_subplot(1, 1, 1)
-        ax.imshow(self.ims_array)
+        ax.imshow(self.ims_array[200:, :-200])
 
         path_to_here = os.path.dirname(os.path.realpath(__file__))
         plt.savefig(path_to_here+'/../../outputs/theta_MAP_{}_model{}.png'.format(drug_name, idx_model))

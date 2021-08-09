@@ -50,7 +50,7 @@ class Visualizations_Mixin:
         fig = plt.figure(figsize = (50, 50))
         # i, j for placement in empty array; x, y initial codes
         for i, x in enumerate(grid_xs):
-            x += x_im_width/2
+            x += (x_im_width/5) # so spore is at code point
             for j, y in enumerate(grid_ys):
                 y += y_im_width/2
                 code = torch.tensor([x, y], dtype = torch.float32)
@@ -199,15 +199,18 @@ class Visualizations_Mixin:
                     x_start = int(((array_dim-200)/x_range)*(item[0][0] + abs(min_x)))
                     y_start = int(((array_dim-200)/y_range)*(item[0][1] + abs(min_y)))
 
+                    # so the spore is at the code point
+                    contour[:, :, 0] -= int(thresh.shape[1]/5)-5
+                    contour[:, :, 1] -= int(thresh.shape[0]/2)
+
                     contour[:, :, 0] += x_start
-                    #contour[:, :, 0] = np.mean(contour[:, :, 0]) - contour[:, :, 0] + np.mean(contour[:, :, 0])
                     contour[:, :, 1] += array_dim - y_start
 
                     colour_increased = np.array(labels_to_colours[label])*255
                     cv2.drawContours(ims_array, [contour], -1, colour_increased, -1)
 
         fig, ax = plt.subplots(1, figsize=(100, 100))
-        ax.imshow(ims_array)
+        ax.imshow(ims_array[200:, :-200])
         plt.savefig(save_path.format('morphologies'))
         plt.close()
 
