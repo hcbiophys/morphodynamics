@@ -54,7 +54,7 @@ class L_ABC():
         #data_nestedLists_lengths = removeXfrac_spores(data_nestedLists_lengths, frac_stay)
 
 
-        # prior distribution limits
+        # prior distribution limits, note the notation here is same as in scipy, not same as in paper notation
         self.t_germ_s_min = 0.01
         self.t_germ_s_max = 5
         self.t_germ_loc_min = 20
@@ -162,8 +162,8 @@ class L_ABC():
         # order: t_germ_s, t_germ_loc, t_germ_scale, grad_s, grad_loc, grad_scale
         param_dict = {'DMSO':[4.55, 78, 1.58, 0.34, 1.24, 0.55],
         'compound_A': [4.84, 75, 4.12, 0.18, 1.42, 0.94],
-        'compound_X': [2.45, 66.2, 61.4, 0.14, 1.09, 0.64],
-        'compound_C_0_041': [1.85, 68.4, 36.6, 0.62, 0.95, 0.30]}
+        'compound_C_0_041': [1.85, 68.4, 36.6, 0.62, 0.95, 0.30],
+        'compound_X': [2.45, 66.2, 61.4, 0.14, 1.09, 0.64]}
 
 
         utils.plot_MAP_comparison(self.times, self.data_hists, self.num_runs, self.bins, drug_name, param_dict)
