@@ -55,28 +55,35 @@ Fig. 3
 *python run_landscape_visualizations.py [compound] landscape*   
 Note: can be viewed in interactive mode by uncommenting line 191, 'mlab.show()'; please note a window will appear for ~15s as the high resolution output is rendered, though this can be adjusted at the mlab.savefig line.
 
+- To run inference to get the landscape in array form and do eq. 1 simulations over this from scratch:    
+*python run_landscape_model.py [compound] load 0 0*
+
+- To train the PINN from scratch:  
+*python run_landscape_model.py [compound] train [number of hours to train for] [number of times to save weights during training]*   
+Note: new weights will be saved to morphodynamics/outputs/.
+
 Fig. S1
 
 - Fig. S1a:  
-*python run_convergence.py ablation*   
+*python run_convergence.py DMSO ablation*   
 
 - Fig. S1b:  
-*python run_convergence.py losses_repeats*  
+*python run_convergence.py DMSO losses_repeats*  
 
 - Fig. S1c:  
-*python run_convergence.py spore_integrals*  
-Note: change 'original' in the script to the desired repeat out of (original, repeat_a, repeat_b)
+*python run_convergence.py DMSO spore_integrals*  
 
 - Fig. S1e:  
 *python run_landscape_visualizations.py landscape*  
+Note: change 'original' in the script to the desired repeat out of (original, repeat_a, repeat_b)
 
 - Fig. S1f:  
-*python run_convergence.py plot_field_uncertainties*  
+*python run_convergence.py [compound] plot_field_uncertainties*  
 
 Fig. S2
 
 - Fig. S2:  
-*python run_landscape_visualizations.py morphospace_connection*  
+*python run_landscape_visualizations.py [compound] morphospace_connection*  
 
 Fig. S3
 
@@ -90,17 +97,14 @@ Fig. S4
 Note: please note: fewer trajectories are used in this code than for the paper figure for memory considerations, though the results are near-identical.
 
 - Fig. S4d:  
-*python run_landscape_visualizations.py entropy*  
+*python run_landscape_visualizations.py [compound] entropy*  
 
 
 
 
-- To train the PINN from scratch:  
-*python run_landscape_model.py [compound] train [number of hours to train for] [number of times to save weights during training]*   
-Note: new weights will be saved to morphodynamics/outputs/.
 
-- To run inference to get the landscape in array form and do eq. 1 simulations over this from scratch:    
-*python run_landscape_model.py [compound] load 0 0*
+
+
 
 
 

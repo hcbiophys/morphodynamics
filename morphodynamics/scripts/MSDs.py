@@ -1,4 +1,6 @@
 import numpy as np
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import cv2
 import pickle
@@ -81,8 +83,8 @@ def cross_correlation_matrix():
         return corr
 
     matrix = np.zeros(shape = (5, 5))
-    for i, drug_video in enumerate(['DMSO', 'Carb', 'Pik', 'Sol41', 'Tou']):
-        for j, drug_sim in enumerate(['DMSO', 'Carb', 'Pik', 'Sol41', 'Tou']):
+    for i, drug_video in enumerate(['DMSO', 'compound_A', 'compound_B', 'compound_C_0_041', 'compound_X']):
+        for j, drug_sim in enumerate(['DMSO', 'compound_A', 'compound_B', 'compound_C_0_041', 'compound_X']):
             a = find_MSDs(video_trajs_all[drug_video])
             b = find_MSDs(sims_all[drug_sim])
 
@@ -113,13 +115,15 @@ def cross_correlation_matrix():
     fig.colorbar(pos, ax=ax, ticks = [])
     plt.tight_layout()
 
-    plt.savefig('/Users/harry/Desktop/confusion_matrix.png'.format(drug), dpi = 1200)
+    plt.savefig(path_to_here+'/../outputs/confusion_matrix.png'.format(drug_name), dpi = 1200)
 
 
 
 
 
 
+video_trajs_all = {}
+sims_all = {}
 
 
 for drug_name in ['compound_A', 'compound_B', 'compound_C_0_041', 'compound_X', 'DMSO']:
@@ -131,7 +135,7 @@ for drug_name in ['compound_A', 'compound_B', 'compound_C_0_041', 'compound_X', 
 
     path = path_to_here+'/../data/landscape_visualizations/{}/original/subsampled_paths_p0.pickle'.format(drug_name)
     if drug_name == 'DMSO':
-        path = path_to_here+'/../data/landscape_visualizations/{}/original/60_hours/subsampled_paths_p0.pickle'.format(drug_name)
+        path = path_to_here+'/../data/landscape_visualizations/{}/original/30_hours/subsampled_paths_p0.pickle'.format(drug_name)
 
     sims = open(path, 'rb')
     sims = pickle.load(sims)
@@ -152,8 +156,12 @@ for drug_name in ['compound_A', 'compound_B', 'compound_C_0_041', 'compound_X', 
         video_trajs.append([_standardize_coords(j, lims_list) for j in i])
 
     video_trajs = [i[:35] for i in video_trajs]
-    sims = [i[::6] for i in sims] # so it's 3 min intervals like the videos
+    video_trajs_all[drug_name] = video_trajs
+
+    sims = [i[::60] for i in sims] # so it's 3 min intervals like the videos
     sims = [i[:35] for i in sims]
+
+    sims_all[drug_name] = sims
 
 
 
