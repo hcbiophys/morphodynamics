@@ -1,5 +1,4 @@
 ## Code used for the manuscript Physics-Informed Deep Learning Characterizes Morphodynamics of Asian Soybean Rust Disease
-Please do get in touch if needed (henry.cavanagh14@imperial.ac.uk)
 
 
 Please note:
